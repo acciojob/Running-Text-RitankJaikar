@@ -9,11 +9,12 @@ input = parseInt(input);
 let i=0;
 const interval = setInterval(() => {
 	if(i>=text.length) {
+		console.log(i);
 		clearInterval(interval);
 		return;
 	}
-	console.log(i);
-	para.innerText += text[i];
+	console.log(i, text[i]);
+	para.innerHTML += text[i];
 	i++;
 }, 500/input);
 
