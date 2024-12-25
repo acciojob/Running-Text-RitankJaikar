@@ -1,24 +1,39 @@
-//your JS code here. If required.
+// Initial text and target paragraph
 const text = "We love Programming!";
+const para = document.querySelector("#text");
 
-const para = document.querySelector("#para");
+// Grab the input element for speed
+const speedInput = document.querySelector("#speed");
 
-let input = prompt("Enter input fom 1 to 10.");
-input = parseInt(input);
+let interval; // To store the interval instance
+let i = 0;
 
-let i=0;
-const interval = setInterval(() => {
-	if(i>=text.length) {
-		console.log(i);
-		clearInterval(interval);
-		return;
-	}
-	console.log(i, text[i]);
-	para.innerHTML += text[i];
-	i++;
-}, 500/input);
+// Function to display text with a given speed
+const displayText = () => {
+  // Clear existing interval if any
+  if (interval) clearInterval(interval);
 
+  const speed = parseInt(speedInput.value); // Get speed from input
 
+  // Validate speed and ensure it is within 1 to 10
+  if (!speed || speed < 1 || speed > 10) {
+    alert("Please enter a speed between 1 and 10.");
+    return;
+  }
 
+  para.innerHTML = ""; // Reset paragraph text
+  i = 0; // Reset counter
 
+  // Set interval based on speed
+  interval = setInterval(() => {
+    if (i >= text.length) {
+      clearInterval(interval); // Clear interval once text is displayed
+      return;
+    }
+    para.innerHTML += text[i]; // Append character to paragraph
+    i++;
+  }, 500 / speed);
+};
 
+// Add event listener for when the speed input value changes
+speedInput.addEventListener("input", displayText);
